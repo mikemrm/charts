@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "lemmy.service.fullname" (dict "name" "server" "context" .) | quote }}
+spec:
+  selector: {{- include "common.labels.matchLabels" (dict "customLabels" .Values.server.labels "context" $) | nindent 4 }}
+    service: server
+  ports:
+    - name: http
+      port: 80
+      targetPort: http
+    - name: metrics
+      port: 8080
+      targetPort: metrics

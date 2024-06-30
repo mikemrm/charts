@@ -1,0 +1,135 @@
+{{- if .Values.server.config.enabled }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "lemmy.service.fullname" (dict "name" "server" "context" .) | quote }}
+data:
+  config.hjson: |
+    {
+      {{- with .Values.server.config.hostname }}
+      hostname: {{ quote . }}
+      {{- else }}
+      hostname: {{ include "lemmy.service.fullname" (dict "name" "server" "context" .) | quote }}
+      {{- end }}
+
+      bind: "0.0.0.0"
+      port: 8536
+      tls_enabled: true
+
+      {{- with .Values.server.config.opentelemetryURL }}
+      opentelemetry_url: {{ quote . }}
+      {{- end }}
+
+      worker_count: {{ .Values.server.config.workerCount }}
+      retry_count: {{ .Values.server.config.retryCount }}
+
+      {{- with .Values.server.config.corsOrigin }}
+      cors_origin: {{ quote . }}
+      {{- end }}
+
+      {{- with .Values.server.config.database }}
+      {{- if or .uri .user .password .host .port .database .poolSize }}
+      database: {
+        {{- with .uri }}
+        uri: {{ quote . }}
+        {{- end }}
+
+        {{- with .user }}
+        user: {{ quote . }}
+        {{- end }}
+
+        {{- with .password }}
+        password: {{ quote . }}
+        {{- end }}
+
+        {{- with .host }}
+        host: {{ quote . }}
+        {{- end }}
+
+        {{- with .port }}
+        port: {{ . }}
+        {{- end }}
+
+        {{- with .database }}
+        database: {{ quote . }}
+        {{- end }}
+
+        {{- with .poolSize }}
+        pool_size: {{ . }}
+        {{- end }}
+      }
+      {{- end }}
+      {{- end }}
+
+      {{- with .Values.pictrs }}
+      {{- if or .enabled .external.url .exeternal.apiKey }}
+      pictrs: {
+        {{- if .enabled }}
+        url: {{ printf "http://%s/" (include "lemmy.service.fullname" (dict "name" "pictrs" "context" $)) | quote }}
+        {{- else }}
+        url: {{ quote .external.url }}
+        {{- with .external.apiKey }}
+        api_key: {{ quote . }}
+        {{- end }}
+        {{- end }}
+      }
+      {{- end }}
+      {{- end }}
+
+      {{- with .Values.server.config.email }}
+      {{- if or .smtp.server .smtp.login .smtp.password .smtp.fromAddress .tls.type }}
+      email: {
+        {{- with .smtp.server }}
+        smtp_server: {{ quote . }}
+        {{- end }}
+
+        {{- with .smtp.login }}
+        smtp_login: {{ quote . }}
+        {{- end }}
+
+        {{- with .smtp.password }}
+        smtp_password: {{ quote . }}
+        {{- end }}
+
+        {{- with .smtp.fromAddress }}
+        smtp_from_address: {{ quote . }}
+        {{- end }}
+
+        {{- with .tls.type }}
+        tls_type: {{ quote . }}
+        {{- end }}
+      }
+      {{- end }}
+      {{- end }}
+
+      {{- with .Values.server.config.setup }}
+      {{- if or .admin.username .admin.password .admin.email .site.name }}
+      setup: {
+        {{- with .admin.username }}
+        admin_username: {{ quote . }}
+        {{- end }}
+
+        {{- with .admin.password }}
+        admin_password: {{ quote . }}
+        {{- end }}
+
+        {{- with .site.name }}
+        site_name: {{ quote . }}
+        {{- end }}
+
+        {{- with .admin.email }}
+        admin_email: {{ quote . }}
+        {{- end }}
+      }
+      {{- end }}
+      {{- end }}
+
+      {{- if .Values.server.serviceMonitor.enabled }}
+      prometheus: {
+        bind: "0.0.0.0"
+        port: 8080
+      }
+      {{- end }}
+    }
+{{- end }}

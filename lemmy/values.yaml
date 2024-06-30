@@ -1,0 +1,97 @@
+---
+server:
+  image:
+    registry: ""
+    repository: dessalines/lemmy
+    tag: "" # Defaults to Release.AppVersion
+    digest: ""
+    pullPolicy: IfNotPresent
+
+  labels: {}
+
+  config:
+    enabled: true
+
+    hostname: ""
+    corsOrigin: ""
+
+    opentelemetryURL: ""
+    workerCount: 0
+    retryCount: 0
+
+    database:
+      uri: ""
+      uriSecret: ""
+      user: ""
+      password: ""
+      passwordSecret: ""
+      host: ""
+      port: 0
+      database: ""
+
+      poolSize: 0
+
+    email:
+      smtp:
+        server: ""
+        login: ""
+        password: ""
+        passwordSecret: ""
+        fromAddress: ""
+      tls:
+        type: ""
+
+    setup:
+      site:
+        name: ""
+      admin:
+        email: ""
+        username: ""
+        password: ""
+
+  ingress:
+    enabled: false
+    annotations: {}
+    hosts: []
+    tls: {}
+
+  serviceMonitor:
+    enabled: false
+    labels: {}
+
+ui:
+  enabled: true
+  image:
+    registry: ""
+    repository: dessalines/lemmy-ui
+    tag: "" # Defaults to Release.AppVersion
+    digest: ""
+    pullPolicy: IfNotPresent
+
+  labels: {}
+
+  ingress:
+    enabled: false
+    annotations: {}
+    hosts: []
+    tls: {}
+
+  external:
+    host: ""
+    https: false
+
+pictrs:
+  enabled: true
+
+  labels: {}
+
+  image:
+    registry: ""
+    repository: asonix/pictrs
+    tag: "0.5"
+    digest: ""
+    pullPolicy: IfNotPresent
+
+  external:
+    url: ""
+    apiKey: ""

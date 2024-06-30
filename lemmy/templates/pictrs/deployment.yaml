@@ -1,0 +1,43 @@
+{{- if .Values.pictrs.enabled }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "lemmy.service.fullname" (dict "name" "pictrs" "context" .) | quote }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {{- include "common.labels.matchLabels" (dict "customLabels" .Values.pictrs.labels "context" $) | nindent 6 }}
+      service: pictrs
+  template:
+    metadata:
+      {{- with .Values.pictrs.annotations }}
+      annotations: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels: {{- include "common.labels.standard" (dict "customLabels" .Values.pictrs.labels "context" $) | nindent 8 }}
+        service: pictrs
+    spec:
+      containers:
+        - name: {{ include "lemmy.service.fullname" (dict "name" "pictrs" "context" .) | quote }}
+          image: {{ include "common.images.image" ( dict "imageRoot" (merge .Values.pictrs.image (dict "tag" .Chart.AppVersion)) ) | quote }}
+          imagePullPolicy: {{ quote .Values.pictrs.image.pullPolicy }}
+          {{- with .Values.pictrs.env }}
+          env: {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.pictrs.envFrom }}
+          envFrom: {{- toYaml . | nindent 12 }}
+          {{- end }}
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
+          {{- with .Values.pictrs.podSecurityContext }}
+          securityContext: {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.pictrs.volumeMounts }}
+          volumeMounts: {{- toYaml . | nindent 12 }}
+          {{- end }}
+      {{- with .Values.pictrs.volumes }}
+      volumes: {{- toYaml . | nindent 8 }}
+      {{- end }}
+{{- end }}

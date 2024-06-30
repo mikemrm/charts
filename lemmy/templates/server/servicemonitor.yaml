@@ -1,0 +1,16 @@
+{{- if .Values.server.serviceMonitor.enabled }}
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "lemmy.service.fullname" (dict "name" "server" "context" .) | quote }}
+  {{- with .Values.server.serviceMonitor.label }}
+  labels: {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  selector:
+    matchLabels: {{- include "common.labels.matchLabels" (dict "customLabels" .Values.server.labels "context" $) | nindent 6 }}
+      service: server
+  endpoints:
+    - port: metrics
+{{- end }}

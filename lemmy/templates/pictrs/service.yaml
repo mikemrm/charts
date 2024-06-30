@@ -1,0 +1,14 @@
+{{- if .Values.pictrs.enabled }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "lemmy.service.fullname" (dict "name" "pictrs" "context" .) | quote }}
+spec:
+  selector: {{- include "common.labels.matchLabels" (dict "customLabels" .Values.pictrs.labels "context" $) | nindent 4 }}
+    service: pictrs
+  ports:
+    - name: http
+      port: 80
+      targetPort: http
+{{- end }}
