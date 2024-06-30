@@ -1,0 +1,22 @@
+---
+image:
+  registry: ghcr.io
+  repository: aeharding/voyager
+  tag: "" # Defaults to Release.AppVersion
+  digest: ""
+  pullPolicy: IfNotPresent
+
+lemmyServers: []
+
+labels: {}
+env: []
+envFrom: []
+
+ingress:
+  enabled: false
+  annotations: {}
+  hosts: []
+  tls: []
+
+service:
+  enabled: false

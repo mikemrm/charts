@@ -1,0 +1,44 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "common.names.fullname" . | quote }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {{- include "common.labels.matchLabels" (dict "customLabels" .Values.labels "context" $) | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.annotations }}
+      annotations: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels: {{- include "common.labels.standard" (dict "customLabels" .Values.labels "context" $) | nindent 8 }}
+    spec:
+      containers:
+        - name: {{ include "common.names.fullname" . | quote }}
+          image: {{ include "common.images.image" ( dict "imageRoot" (merge .Values.image (dict "tag" .Chart.AppVersion)) ) | quote }}
+          imagePullPolicy: {{ quote .Values.image.pullPolicy }}
+          {{- if or .Values.lemmyServers .Values.env }}
+          env:
+            - name: CUSTOM_LEMMY_SERVERS
+              value: {{ join "," .Values.lemmyServers | quote }}
+            {{- with .Values.env }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          {{- end }}
+          {{- with .Values.envFrom }}
+          envFrom: {{- toYaml . | nindent 12 }}
+          {{- end }}
+          ports:
+            - containerPort: 5314
+              name: http
+              protocol: TCP
+          {{- with .Values.podSecurityContext }}
+          securityContext: {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.volumeMounts }}
+          volumeMounts: {{- toYaml . | nindent 12 }}
+          {{- end }}
+      {{- with .Values.volumes }}
+      volumes: {{- toYaml . | nindent 8 }}
+      {{- end }}
