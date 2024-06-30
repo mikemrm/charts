@@ -24,8 +24,8 @@ data:
       worker_count: {{ .Values.server.config.workerCount }}
       retry_count: {{ .Values.server.config.retryCount }}
 
-      {{- with .Values.server.config.corsOrigin }}
-      cors_origin: {{ quote . }}
+      {{- with .Values.server.config.corsOrigins }}
+      cors_origin: {{ join "," . | quote }}
       {{- end }}
 
       {{- with .Values.server.config.database }}
