@@ -1,0 +1,35 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended"
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": [
+        "^lemmy/Chart.yaml$"
+      ],
+      "matchStrings": [
+        "^appVersion: (?<currentValue>)\\n"
+      ],
+      "datasourceTemplate": "github-releases",
+      "depNameTemplate": "lemmy",
+      "packageNameTemplate": "LemmyNet/lemmy"
+    },
+    {
+      "customType": "regex",
+      "fileMatch": [
+        "^voyager/Chart.yaml$"
+      ],
+      "matchStrings": [
+        "^appVersion: (?<currentValue>)\\n"
+      ],
+      "datasourceTemplate": "github-releases",
+      "depNameTemplate": "voyager",
+      "packageNameTemplate": "aeharding/voyager"
+    }
+  ],
+  "postUpdateOptions": [
+    "helmUpdateSubChartArchives"
+  ]
+}
