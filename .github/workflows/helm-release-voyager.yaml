@@ -1,0 +1,37 @@
+name: Release Voyager
+
+on:
+  push:
+    tags:
+      - voyager-v*
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Install Helm
+        uses: azure/setup-helm@v3
+        with:
+          version: v3.10.0
+
+      - name: Login to mrmhub
+        run: |
+          echo '${{ secrets.MRMHUB_PASSWORD }}' | helm registry login mrmhub.io --username '${{ secrets.MRMHUB_USERNAME }}' --password-stdin
+      
+      - name: Configure chart version
+        id: chart_version
+        run: |
+          echo "chart_version=$(cut -d - -f 2- <<<"${{ github.ref }}")" >> "$GITHUB_OUTPUT"
+      
+      - name: Package chart
+        run: |
+          helm package voyager --version "${{ steps.chart_version.outputs.chart_version }}"
+      
+      - name: Upload chart
+        run: |
+          helm push "voyager-${{ steps.chart_version.outputs.chart_version }}.tgz" oci://mrmhub.io/mikemrm
