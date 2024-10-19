@@ -50,6 +50,11 @@ spec:
             - containerPort: 8080
               name: metrics
               protocol: TCP
+          {{- if .Values.server.resources }}
+          resources: {{- toYaml .Values.server.resources | nindent 12 }}
+          {{- else if ne .Values.server.resourcesPreset "none" }}
+          resources: {{- include "common.resources.preset" (dict "type" .Values.server.resourcesPreset) | nindent 12 }}
+          {{- end }}
           {{- with .Values.server.podSecurityContext }}
           securityContext: {{- toYaml . | nindent 12 }}
           {{- end }}

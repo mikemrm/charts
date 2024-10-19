@@ -2,20 +2,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "common.names.fullname" . | quote }}
+  name: {{ include "voyager.service.fullname" (dict "name" "ui" "context" .) | quote }}
 spec:
   replicas: 1
   selector:
     matchLabels: {{- include "common.labels.matchLabels" (dict "customLabels" .Values.labels "context" $) | nindent 6 }}
+      service: voyager-ui
   template:
     metadata:
       {{- with .Values.annotations }}
       annotations: {{- toYaml . | nindent 8 }}
       {{- end }}
       labels: {{- include "common.labels.standard" (dict "customLabels" .Values.labels "context" $) | nindent 8 }}
+        service: voyager-ui
     spec:
       containers:
-        - name: {{ include "common.names.fullname" . | quote }}
+        - name: {{ include "voyager.service.fullname" (dict "name" "ui" "context" .) | quote }}
           image: {{ include "common.images.image" ( dict "imageRoot" (merge .Values.image (dict "tag" .Chart.AppVersion)) ) | quote }}
           imagePullPolicy: {{ quote .Values.image.pullPolicy }}
           {{- if or .Values.lemmyServers .Values.env }}
@@ -33,6 +35,11 @@ spec:
             - containerPort: 5314
               name: http
               protocol: TCP
+          {{- if .Values.resources }}
+          resources: {{- toYaml .Values.resources | nindent 12 }}
+          {{- else if ne .Values.resourcesPreset "none" }}
+          resources: {{- include "common.resources.preset" (dict "type" .Values.resourcesPreset) | nindent 12 }}
+          {{- end }}
           {{- with .Values.podSecurityContext }}
           securityContext: {{- toYaml . | nindent 12 }}
           {{- end }}

@@ -55,6 +55,9 @@ server:
     hosts: []
     tls: []
 
+  resourcesPreset: micro
+  resources: {}
+
   serviceMonitor:
     enabled: false
     labels: {}
@@ -80,6 +83,9 @@ ui:
     host: ""
     https: false
 
+  resourcesPreset: nano
+  resources: {}
+
 pictrs:
   enabled: true
 
@@ -95,3 +101,31 @@ pictrs:
   external:
     url: ""
     apiKey: ""
+
+  resourcesPreset: micro
+  resources: {}
+
+proxy:
+  enabled: false
+
+  image:
+    registry: ""
+    repository: nginx
+    tag: "1-alpine"
+    digest: ""
+    pullPolicy: IfNotPresent
+
+  config:
+    enabled: false
+    allowedProxies: []
+
+  labels: {}
+
+  ingress:
+    enabled: false
+    annotations: {}
+    hosts: []
+    tls: []
+
+  resourcesPreset: nano
+  resources: {}

@@ -20,3 +20,33 @@ ingress:
 
 service:
   enabled: false
+
+resourcesPreset: nano
+resources: {}
+
+proxy:
+  enabled: false
+
+  image:
+    registry: ""
+    repository: nginx
+    tag: "1-alpine"
+    digest: ""
+    pullPolicy: IfNotPresent
+
+  config:
+    enabled: true
+
+    lemmyServer: ""
+    allowedProxies: []
+
+  labels: {}
+
+  ingress:
+    enabled: false
+    annotations: {}
+    hosts: []
+    tls: []
+
+  resourcesPreset: nano
+  resources: {}

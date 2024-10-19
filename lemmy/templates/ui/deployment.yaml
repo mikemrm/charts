@@ -42,6 +42,11 @@ spec:
             - containerPort: 1234
               name: http
               protocol: TCP
+          {{- if .Values.ui.resources }}
+          resources: {{- toYaml .Values.ui.resources | nindent 12 }}
+          {{- else if ne .Values.ui.resourcesPreset "none" }}
+          resources: {{- include "common.resources.preset" (dict "type" .Values.ui.resourcesPreset) | nindent 12 }}
+          {{- end }}
           {{- with .Values.ui.podSecurityContext }}
           securityContext: {{- toYaml . | nindent 12 }}
           {{- end }}

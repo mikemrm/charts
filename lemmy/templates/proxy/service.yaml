@@ -1,0 +1,14 @@
+{{- if .Values.proxy.enabled }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "lemmy.service.fullname" (dict "name" "proxy" "context" .) | quote }}
+spec:
+  selector: {{- include "common.labels.matchLabels" (dict "customLabels" .Values.proxy.labels "context" $) | nindent 4 }}
+    service: lemmy-proxy
+  ports:
+    - name: http
+      port: 80
+      targetPort: http
+{{- end }}

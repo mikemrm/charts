@@ -31,6 +31,11 @@ spec:
             - containerPort: 8080
               name: http
               protocol: TCP
+          {{- if .Values.pictrs.resources }}
+          resources: {{- toYaml .Values.pictrs.resources | nindent 12 }}
+          {{- else if ne .Values.pictrs.resourcesPreset "none" }}
+          resources: {{- include "common.resources.preset" (dict "type" .Values.pictrs.resourcesPreset) | nindent 12 }}
+          {{- end }}
           {{- with .Values.pictrs.podSecurityContext }}
           securityContext: {{- toYaml . | nindent 12 }}
           {{- end }}

@@ -1,0 +1,64 @@
+{{- if .Values.proxy.enabled }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "lemmy.service.fullname" (dict "name" "proxy" "context" .) | quote }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {{- include "common.labels.matchLabels" (dict "customLabels" .Values.proxy.labels "context" $) | nindent 6 }}
+      service: lemmy-proxy
+  template:
+    metadata:
+      {{- with .Values.proxy.annotations }}
+      annotations: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels: {{- include "common.labels.standard" (dict "customLabels" .Values.proxy.labels "context" $) | nindent 8 }}
+        service: lemmy-proxy
+    spec:
+      containers:
+        - name: {{ include "lemmy.service.fullname" (dict "name" "proxy" "context" .) | quote }}
+          image: {{ include "common.images.image" ( dict "imageRoot" (merge .Values.proxy.image (dict "tag" .Chart.AppVersion)) ) | quote }}
+          imagePullPolicy: {{ quote .Values.proxy.image.pullPolicy }}
+          {{- with .Values.proxy.env }}
+          env: {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.proxy.envFrom }}
+          envFrom: {{- toYaml . | nindent 12 }}
+          {{- end }}
+          ports:
+            - containerPort: 80
+              name: http
+              protocol: TCP
+          {{- if .Values.proxy.resources }}
+          resources: {{- toYaml .Values.proxy.resources | nindent 12 }}
+          {{- else if ne .Values.proxy.resourcesPreset "none" }}
+          resources: {{- include "common.resources.preset" (dict "type" .Values.proxy.resourcesPreset) | nindent 12 }}
+          {{- end }}
+          {{- with .Values.proxy.podSecurityContext }}
+          securityContext: {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- if or .Values.proxy.config.enabled .Values.proxy.volumeMounts }}
+          volumeMounts:
+            {{- if .Values.proxy.config.enabled }}
+            - name: config
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+            {{- end }}
+            {{- with .Values.proxy.volumeMounts }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          {{- end }}
+      {{- if or .Values.proxy.config.enabled .Values.proxy.volumes }}
+      volumes:
+        {{- if .Values.proxy.config.enabled }}
+        - name: config
+          configMap:
+            name: {{ include "lemmy.service.fullname" (dict "name" "proxy" "context" .) | quote }}
+        {{- end }}
+        {{- with .Values.proxy.volumes }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+      {{- end }}
+{{- end }}
