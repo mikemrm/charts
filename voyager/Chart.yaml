@@ -3,6 +3,7 @@ name: voyager
 description: voyager
 type: application
 version: 0.1.0
+# renovate: image=ghcr.io/aeharding/voyager
 appVersion: 2.12.4
 dependencies:
   - name: common

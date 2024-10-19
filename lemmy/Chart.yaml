@@ -3,6 +3,7 @@ name: lemmy
 description: lemmy
 type: application
 version: 0.1.0
+# renovate: image=dessalines/lemmy
 appVersion: 0.19.5
 dependencies:
   - name: common
