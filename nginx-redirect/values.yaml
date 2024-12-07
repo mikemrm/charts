@@ -1,0 +1,27 @@
+redirects: {}
+# redirect.host: https://redirect/url
+
+nameOverride: ""
+fullnameOverride: ""
+
+deployment:
+  image:
+    registry: ""
+    repository: nginx
+    tag: "" # Defaults to Release.AppVersion-alpine
+    digest: ""
+    pullPolicy: IfNotPresent
+
+  labels: {}
+  annotations: {}
+  podLabels: {}
+
+  resourcesPreset: nano
+  resources: {}
+
+ingress:
+  enabled: false
+
+  annotations: {}
+  hosts: []
+  tls: {}

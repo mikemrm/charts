@@ -1,0 +1,21 @@
+map $http_host $redir_to {
+    default "not-found";
+{{- range $shost, $dhost := .Values.redirects }}
+    {{ $shost }} {{ quote $dhost }};
+{{- end }}
+}
+
+server {
+    listen       80;
+    server_name  localhost default_server;
+
+    location / {
+        if ($redir_to = "not-found") {
+            add_header Content/Type text/plain;
+
+            return 404;
+        }
+
+        return 301 $redir_to;
+    }
+}

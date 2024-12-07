@@ -1,0 +1,54 @@
+{{- $defaultImageTag := printf "%s-alpine" .Chart.AppVersion }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "common.names.fullname" . | quote }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {{- include "common.labels.matchLabels" (dict "customLabels" .Values.deployment.labels "context" $) | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        checksum/templates: {{ include "common.utils.checksumTemplate" (dict "path" "/configmap.yaml" "context" $) | quote }}
+        {{- with .Values.deployment.annotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+      labels: {{- include "common.labels.standard" (dict "customLabels" .Values.deployment.podLabels "context" $) | nindent 8 }}
+    spec:
+      containers:
+        - name: {{ include "common.names.fullname" . | quote }}
+          image: {{ include "common.images.image" ( dict "imageRoot" (merge .Values.deployment.image (dict "tag" $defaultImageTag)) ) | quote }}
+          imagePullPolicy: {{ quote .Values.deployment.image.pullPolicy }}
+          {{- with .Values.deployment.env }}
+          env: {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.deployment.envFrom }}
+          envFrom: {{- toYaml . | nindent 12 }}
+          {{- end }}
+          ports:
+            - containerPort: 80
+              name: http
+              protocol: TCP
+          {{- if .Values.deployment.resources }}
+          resources: {{- toYaml .Values.deployment.resources | nindent 12 }}
+          {{- else if ne .Values.deployment.resourcesPreset "none" }}
+          resources: {{- include "common.resources.preset" (dict "type" .Values.deployment.resourcesPreset) | nindent 12 }}
+          {{- end }}
+          {{- with .Values.deployment.podSecurityContext }}
+          securityContext: {{- toYaml . | nindent 12 }}
+          {{- end }}
+          volumeMounts:
+            - name: nginx-templates
+              mountPath: /etc/nginx/templates
+            {{- with .Values.deployment.volumeMounts }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+      volumes:
+        - name: nginx-templates
+          configMap:
+            name: {{ include "common.names.fullname" . }}-templates
+        {{- with .Values.deployment.volumes }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
