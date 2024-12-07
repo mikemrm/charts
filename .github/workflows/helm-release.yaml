@@ -1,9 +1,9 @@
-name: Release Voyager
+name: Release Helm
 
 on:
   push:
     tags:
-      - voyager-v*
+      - '*/v*'
 
 jobs:
   release:
@@ -24,14 +24,17 @@ jobs:
           echo '${{ secrets.MRMHUB_PASSWORD }}' | helm registry login mrmhub.io --username '${{ secrets.MRMHUB_USERNAME }}' --password-stdin
       
       - name: Configure chart version
-        id: chart_version
+        id: chart_meta
         run: |
-          echo "chart_version=$(cut -d - -f 2- <<<"${{ github.ref }}")" >> "$GITHUB_OUTPUT"
-      
+          cat >> "$GITHUB_OUTPUT" <<EOF
+          chart_name=$(cut -d / -f 3 <<<"${{ github.ref }}")
+          chart_version=$(cut -d / -f 4- <<<"${{ github.ref }}")
+          EOF
+
       - name: Package chart
         run: |
-          helm package voyager --version "${{ steps.chart_version.outputs.chart_version }}"
+          helm package "${{ steps.chart_meta.outputs.chart_name }}" --version "${{ steps.chart_meta.outputs.chart_version }}"
       
       - name: Upload chart
         run: |
-          helm push "voyager-${{ steps.chart_version.outputs.chart_version }}.tgz" oci://mrmhub.io/mikemrm
+          helm push "${{ steps.chart_meta.outputs.chart_name }}-${{ steps.chart_meta.outputs.chart_version }}.tgz" oci://mrmhub.io/mikemrm
