@@ -1,4 +1,4 @@
-.PHONY: helm-docs version-increment bump-major bump-minor bump-patch prepare-branch
+.PHONY: helm-docs version-increment bump-major bump-minor bump-patch prepare-branch tag-release
 
 help: Makefile ## Prints this help message.
 	@grep -h "##" $(MAKEFILE_LIST) | grep -v grep | sed -e 's/:.*##/#/' | column -c 2 -t -s#
@@ -9,15 +9,15 @@ helm-docs: ## Regenerates helm docs
 version-increment:
 	@if [ -z "$(CHART)" ]; then echo 'CHART=$$NAME must be specified'; exit 1; fi
 
-	@current_version="$$(yq -r '.version' "$(CHART)/Chart.yaml")"; \
+	@current_version="$$(yq -r '.version' "$(CHART)/Chart.yaml")" && \
 	export next_version="$$(yq -r '.version | capture("v?(?P<major>[0-9]+)\\.(?P<minor>[0-9]+)\\.(?P<patch>[0-9]+).*") \
 										| ."$(NEXT)" |= (tonumber + 1 | tostring) \
 										| .major |= ("$(MAJOR_VERSION)" | select(. != "") // .major) \
 										| .minor |= ("$(MINOR_VERSION)" | select(. != "") // .minor) \
 										| .patch |= ("$(PATCH_VERSION)" | select(. != "") // .patch) \
 										| "v" + ([.major, .minor, .patch] | join(".")) \
-					' "$(CHART)/Chart.yaml")"; \
-	echo "Updating version: $$current_version -> $$next_version"; \
+					' "$(CHART)/Chart.yaml")" && \
+	echo "Updating version: $$current_version -> $$next_version" && \
 	yq -i '.version = env(next_version)' "$(CHART)/Chart.yaml"
 
 bump-major: NEXT=major
@@ -46,3 +46,11 @@ prepare-branch: ## Prepares CHART release branch. Use bump-* to bump the version
 	fi; \
 	echo ""; \
 	echo "Branch prepared! Run: git push origin releases/$(CHART)/$$current_version"
+
+tag-release: ## Creates a CHART tag.
+	@if [ -z "$(CHART)" ]; then echo 'CHART=$$NAME must be specified'; exit 1; fi
+
+	@current_version="$$(yq -r '.version' "$(CHART)/Chart.yaml")"; \
+	git tag -a -m "$$current_version" "$(CHART)/$$current_version" && \
+	echo "Tag $(CHART)/$$current_version is ready to be pushed." && \
+	echo "Use git push origin --tags $(CHART)/$$current_version"

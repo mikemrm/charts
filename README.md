@@ -24,6 +24,19 @@ This will create a new branch named `releases/CHART/VERSION`.
 
 You may also combine both of these steps with `make CHART=CHART_NAME bump-patch prepare-branch`.
 
+Once prepared push the branch.
+Once merged a new tag can be cut.
+First make sure you have the most recent changes:
+
+```shell
+git checkout main
+git pull origin main
+git fetch origin
+```
+
+Then tag the release with `make CHART=CHART_NAME tag-release`.
+Once tagged, push the new tag with `git push origin --tags $TAG`
+
 Example output:
 
 ~~~shell
@@ -80,4 +93,50 @@ Changes to be committed:
  2 files changed, 3 insertions(+), 3 deletions(-)
 
 Branch prepared! Run: git push origin releases/voyager/v0.2.3
+
+$ git push origin releases/voyager/v0.2.3
+Enumerating objects: 9, done.
+Counting objects: 100% (9/9), done.
+Delta compression using up to 16 threads
+Compressing objects: 100% (5/5), done.
+Writing objects: 100% (5/5), 721 bytes | 721.00 KiB/s, done.
+Total 5 (delta 4), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (4/4), completed with 4 local objects.
+remote:
+remote: Create a pull request for 'releases/voyager/v0.2.3' on GitHub by visiting:
+remote:      https://github.com/mikemrm/charts/pull/new/releases/voyager/v0.2.3
+remote:
+To github.com:mikemrm/charts.git
+ * [new branch]      releases/voyager/v0.2.3 -> releases/voyager/v0.2.3
+
+$ git checkout main
+Switched to branch 'main'
+
+$ git pull origin main
+remote: Enumerating objects: 1, done.
+remote: Counting objects: 100% (1/1), done.
+remote: Total 1 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)
+Unpacking objects: 100% (1/1), 905 bytes | 905.00 KiB/s, done.
+From github.com:mikemrm/charts
+ * branch            main       -> FETCH_HEAD
+   1c87390..75d9a5a  main       -> origin/main
+Updating 1c87390..75d9a5a
+Fast-forward
+ voyager/Chart.yaml | 2 +-
+ voyager/README.md  | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+$ git fetch origin
+
+$ make CHART=voyager tag-release
+Tag voyager/v0.1.3 is ready to be pushed.
+Use git push origin --tags voyager/v0.1.3
+
+$ git push origin --tags voyager/v0.1.3
+Enumerating objects: 1, done.
+Counting objects: 100% (1/1), done.
+Writing objects: 100% (1/1), 161 bytes | 161.00 KiB/s, done.
+Total 1 (delta 0), reused 0 (delta 0), pack-reused 0
+To github.com:mikemrm/charts.git
+ * [new tag]         voyager/v0.1.3 -> voyager/v0.1.3
 ~~~
