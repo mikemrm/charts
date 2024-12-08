@@ -2,12 +2,14 @@ name: Release Helm
 
 on:
   push:
-    branches:
-      - 'releases/*/v*'
+    tags:
+      - '*/v*'
 
 jobs:
   release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -34,25 +36,10 @@ jobs:
           chart_version=$(cut -d / -f 5- <<<"${{ github.ref }}")
           EOF
 
-      - name: Update chart version
+      - name: Package chart
         run: |
-          chart_file="${{ steps.chart_meta.outputs.chart_name }}/Chart.yaml"
+          helm package "${{ steps.chart_meta.outputs.chart_name }}" --version "${{ steps.chart_meta.outputs.chart_version }}"
 
-          yq '.version = "${{ steps.chart_meta.outputs.chart_version }}"' \
-            "${chart_file}" > "${chart_file}.updated"
-
-          if diff -q "${chart_file}" "${chart_file}.updated"; then
-            mv -f "${chart_file}.update" "${chart_file}"
-          fi
-
-          make helm-docs
-
-          make diff
-
-      # - name: Package chart
-      #   run: |
-      #     helm package "${{ steps.chart_meta.outputs.chart_name }}" --version "${{ steps.chart_meta.outputs.chart_version }}"
-
-      # - name: Upload chart
-      #   run: |
-      #     helm push "${{ steps.chart_meta.outputs.chart_name }}-${{ steps.chart_meta.outputs.chart_version }}.tgz" oci://mrmhub.io/mikemrm
+      - name: Upload chart
+        run: |
+          helm push "${{ steps.chart_meta.outputs.chart_name }}-${{ steps.chart_meta.outputs.chart_version }}.tgz" oci://mrmhub.io/mikemrm

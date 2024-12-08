@@ -1,0 +1,31 @@
+{{ template "chart.header" . }}
+{{ template "chart.deprecationWarning" . }}
+
+{{ template "chart.badgesSection" . }}
+
+{{ template "chart.description" . }}
+
+## Usage
+
+Direct URL: `oci://mrmhub.io/mikemrm/{{ template "chart.name" . }}`
+
+Chart Dependency:
+
+```yaml
+dependencies:
+  - name: {{ template "chart.name" . }}
+    repository: 'oci://mrmhub.io/mikemrm'
+    version: '{{ template "chart.version" . }}'
+```
+
+{{ template "chart.homepageLine" . }}
+
+{{ template "chart.maintainersSection" . }}
+
+{{ template "chart.sourcesSection" . }}
+
+{{ template "chart.requirementsSection" . }}
+
+{{ template "chart.valuesSection" . }}
+
+{{ template "helm-docs.versionFooter" . }}
