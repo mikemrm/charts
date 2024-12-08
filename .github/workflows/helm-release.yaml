@@ -2,8 +2,8 @@ name: Release Helm
 
 on:
   push:
-    tags:
-      - '*/v*'
+    branches:
+      - 'releases/*/v*'
 
 jobs:
   release:
@@ -19,6 +19,9 @@ jobs:
         with:
           version: v3.10.0
 
+      - name: Install yq
+        uses: mikefarah/yq@v4.44.6
+
       - name: Login to mrmhub
         run: |
           echo '${{ secrets.MRMHUB_PASSWORD }}' | helm registry login mrmhub.io --username '${{ secrets.MRMHUB_USERNAME }}' --password-stdin
@@ -27,14 +30,29 @@ jobs:
         id: chart_meta
         run: |
           cat >> "$GITHUB_OUTPUT" <<EOF
-          chart_name=$(cut -d / -f 3 <<<"${{ github.ref }}")
-          chart_version=$(cut -d / -f 4- <<<"${{ github.ref }}")
+          chart_name=$(cut -d / -f 4 <<<"${{ github.ref }}")
+          chart_version=$(cut -d / -f 5- <<<"${{ github.ref }}")
           EOF
 
-      - name: Package chart
+      - name: Update chart version
         run: |
-          helm package "${{ steps.chart_meta.outputs.chart_name }}" --version "${{ steps.chart_meta.outputs.chart_version }}"
-      
-      - name: Upload chart
-        run: |
-          helm push "${{ steps.chart_meta.outputs.chart_name }}-${{ steps.chart_meta.outputs.chart_version }}.tgz" oci://mrmhub.io/mikemrm
+          chart_file="${{ steps.chart_meta.outputs.chart_name }}/Chart.yaml"
+
+          yq '.version = "${{ steps.chart_meta.outputs.chart_version }}"' \
+            "${chart_file}" > "${chart_file}.updated"
+
+          if diff -q "${chart_file}" "${chart_file}.updated"; then
+            mv -f "${chart_file}.update" "${chart_file}"
+          fi
+
+          make helm-docs
+
+          make diff
+
+      # - name: Package chart
+      #   run: |
+      #     helm package "${{ steps.chart_meta.outputs.chart_name }}" --version "${{ steps.chart_meta.outputs.chart_version }}"
+
+      # - name: Upload chart
+      #   run: |
+      #     helm push "${{ steps.chart_meta.outputs.chart_name }}-${{ steps.chart_meta.outputs.chart_version }}.tgz" oci://mrmhub.io/mikemrm
