@@ -2,7 +2,7 @@ apiVersion: v2
 name: lemmy
 description: lemmy
 type: application
-version: 0.1.0
+version: v0.1.1
 # renovate: image=dessalines/lemmy
 appVersion: 0.19.7
 dependencies:
