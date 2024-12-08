@@ -1,7 +1,18 @@
-map $http_host $redir_to {
+map $host$request_uri $redir_to {
     default "not-found";
-{{- range $shost, $dhost := .Values.redirects }}
-    {{ $shost }} {{ quote $dhost }};
+{{- range $src, $dst := .Values.redirects }}
+{{- if hasPrefix "^" $src }}
+    {{ printf "~%s" $src }} {{ quote $dst }};
+{{- end }}
+{{- end }}
+}
+
+map $host $redir_host_to {
+    default "not-found";
+{{- range $src, $dst := .Values.redirects }}
+{{- if not (hasPrefix "^" $src) }}
+    {{ quote $src }} {{ quote $dst }};
+{{- end }}
 {{- end }}
 }
 
@@ -10,12 +21,14 @@ server {
     server_name  localhost default_server;
 
     location / {
-        if ($redir_to = "not-found") {
-            add_header Content/Type text/plain;
-
-            return 404;
+        if ($redir_to != "not-found") {
+            return 301 $redir_to;
         }
 
-        return 301 $redir_to;
+        if ($redir_host_to != "not-found") {
+            return 301 $redir_host_to;
+        }
+
+        return 404;
     }
 }

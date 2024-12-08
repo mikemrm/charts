@@ -1,5 +1,6 @@
 redirects: {}
 # redirect.host: https://redirect/url
+# ^redirect.host/path$: https://redirect/url
 
 nameOverride: ""
 fullnameOverride: ""
@@ -24,4 +25,4 @@ ingress:
 
   annotations: {}
   hosts: []
-  tls: {}
+  tls: []
