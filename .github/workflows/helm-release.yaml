@@ -21,9 +21,6 @@ jobs:
         with:
           version: v3.10.0
 
-      - name: Install yq
-        uses: mikefarah/yq@v4.44.6
-
       - name: Login to mrmhub
         run: |
           echo '${{ secrets.MRMHUB_PASSWORD }}' | helm registry login mrmhub.io --username '${{ secrets.MRMHUB_USERNAME }}' --password-stdin
@@ -32,8 +29,8 @@ jobs:
         id: chart_meta
         run: |
           cat >> "$GITHUB_OUTPUT" <<EOF
-          chart_name=$(cut -d / -f 4 <<<"${{ github.ref }}")
-          chart_version=$(cut -d / -f 5- <<<"${{ github.ref }}")
+          chart_name=$(cut -d / -f 3 <<<"${{ github.ref }}")
+          chart_version=$(cut -d / -f 4- <<<"${{ github.ref }}")
           EOF
 
       - name: Package chart
