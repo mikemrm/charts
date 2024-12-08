@@ -1,6 +1,6 @@
 # voyager
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.19.4](https://img.shields.io/badge/AppVersion-2.19.4-informational?style=flat-square)
+![Version: v0.2.2](https://img.shields.io/badge/Version-v0.2.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.20.0](https://img.shields.io/badge/AppVersion-2.20.0-informational?style=flat-square)
 
 voyager
 
@@ -14,14 +14,14 @@ Chart Dependency:
 dependencies:
   - name: voyager
     repository: 'oci://mrmhub.io/mikemrm'
-    version: '0.1.0'
+    version: 'v0.2.2'
 ```
 
 ## Requirements
 
 | Repository | Name | Version |
 |------------|------|---------|
-| oci://registry-1.docker.io/bitnamicharts | common | 2.27.0 |
+| oci://registry-1.docker.io/bitnamicharts | common | 2.27.2 |
 
 ## Values
 
