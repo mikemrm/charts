@@ -21,7 +21,7 @@ dependencies:
 
 | Repository | Name | Version |
 |------------|------|---------|
-| oci://registry-1.docker.io/bitnamicharts | common | 2.27.0 |
+| oci://registry-1.docker.io/bitnamicharts | common | 2.27.2 |
 
 ## Values
 
