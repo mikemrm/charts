@@ -1,6 +1,6 @@
 # lemmy
 
-![Version: v0.1.1](https://img.shields.io/badge/Version-v0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.19.7](https://img.shields.io/badge/AppVersion-0.19.7-informational?style=flat-square)
+![Version: v0.1.4](https://img.shields.io/badge/Version-v0.1.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.19.7](https://img.shields.io/badge/AppVersion-0.19.7-informational?style=flat-square)
 
 lemmy
 
@@ -14,7 +14,7 @@ Chart Dependency:
 dependencies:
   - name: lemmy
     repository: 'oci://mrmhub.io/mikemrm'
-    version: 'v0.1.1'
+    version: 'v0.1.4'
 ```
 
 ## Requirements
