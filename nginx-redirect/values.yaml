@@ -2,6 +2,9 @@ redirects: {}
 # redirect.host: https://redirect/url
 # ^redirect.host/path$: https://redirect/url
 
+proxy_real_ip_from: []
+#  - 192.168.0.0/16
+
 nameOverride: ""
 fullnameOverride: ""
 
