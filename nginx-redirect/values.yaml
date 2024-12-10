@@ -1,9 +1,38 @@
+---
 redirects: {}
 # redirect.host: https://redirect/url
 # ^redirect.host/path$: https://redirect/url
 
 proxy_real_ip_from: []
 #  - 192.168.0.0/16
+
+resolver: kube-dns.kube-system.svc.cluster.local
+
+otel:
+  enabled: false
+  # -- the address of OTLP/gRPC endpoint that will accept telemetry data.
+  endpoint: ""
+  # -- the maximum interval between two exports.
+  interval: 5s
+  # -- the maximum number of spans to be sent in one batch per worker.
+  batchSize: 512
+  # -- the number of pending batches per worker, spans exceeding the limit are dropped.
+  batchCount: 4
+  # -- sets the "service.name" attribute of the OTel resource.
+  # @default -- .Release.Name
+  serviceName: ""
+  # -- specifies how to propagate trace context.
+  # Options:
+  #  - `extract` uses an existing trace context from the request, so that the identifiers of a trace and the parent span are inherited from the incoming request.
+  #  - `inject` adds a new context to the request, overwriting existing headers, if any.
+  #  - `propagate` updates the existing context (combines extract and i nject).
+  #  - `ignore` skips context headers processing.
+  context: inject
+  # -- defines the name of the OTel span.
+  spanName: ""
+  # -- defines additional attributes on the span.
+  spanAttributes:
+    http.referer: $http_referer
 
 nameOverride: ""
 fullnameOverride: ""
