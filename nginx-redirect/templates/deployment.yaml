@@ -1,4 +1,7 @@
 {{- $defaultImageTag := printf "%s-alpine" .Chart.AppVersion }}
+{{- if .Values.otel.enabled }}
+{{- $defaultImageTag = printf "%s-otel" $defaultImageTag }}
+{{- end }}
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -11,7 +14,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/templates: {{ include "common.utils.checksumTemplate" (dict "path" "/configmap.yaml" "context" $) | quote }}
+        checksum/config: {{ include "common.utils.checksumTemplate" (dict "path" "/configmap.yaml" "context" $) | quote }}
         {{- with .Values.deployment.annotations }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -40,15 +43,16 @@ spec:
           securityContext: {{- toYaml . | nindent 12 }}
           {{- end }}
           volumeMounts:
-            - name: nginx-templates
-              mountPath: /etc/nginx/templates
+            - name: nginx-config
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
             {{- with .Values.deployment.volumeMounts }}
             {{- toYaml . | nindent 12 }}
             {{- end }}
       volumes:
-        - name: nginx-templates
+        - name: nginx-config
           configMap:
-            name: {{ include "common.names.fullname" . }}-templates
+            name: {{ include "common.names.fullname" . }}-config
         {{- with .Values.deployment.volumes }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
