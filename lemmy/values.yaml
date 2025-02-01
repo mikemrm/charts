@@ -51,6 +51,7 @@ server:
 
   ingress:
     enabled: false
+    ingressClassName: ""
     annotations: {}
     hosts: []
     tls: []
@@ -75,6 +76,7 @@ ui:
 
   ingress:
     enabled: false
+    ingressClassName: ""
     annotations: {}
     hosts: []
     tls: []
@@ -123,6 +125,7 @@ proxy:
 
   ingress:
     enabled: false
+    ingressClassName: ""
     annotations: {}
     hosts: []
     tls: []

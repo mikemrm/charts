@@ -1,15 +1,19 @@
-{{- if .Values.ui.ingress.enabled }}
+{{- if .Values.proxy.ingress.enabled }}
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ include "lemmy.service.fullname" (dict "name" "ui" "context" .) | quote }}
-  {{- with .Values.ui.ingress.annotations }}
+  name: {{ include "lemmy.service.fullname" (dict "name" "proxy" "context" .) | quote }}
+  {{- with .Values.proxy.ingress.annotations }}
   annotations: {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
+  {{- with .Values.proxy.ingress.ingressClassName }}
+  ingressClassName: {{ quote . }}
+  {{- end }}
+
   rules:
-    {{- range .Values.ui.ingress.hosts }}
+    {{- range .Values.proxy.ingress.hosts }}
     - host: {{ quote . }}
       http:
         paths:
@@ -17,7 +21,7 @@ spec:
             pathType: ImplementationSpecific
             backend:
               service:
-                name: {{ include "lemmy.service.fullname" (dict "name" "ui" "context" $) | quote }}
+                name: {{ include "lemmy.service.fullname" (dict "name" "proxy" "context" $) | quote }}
                 port:
                   name: http
           {{- range list "/api" "/pictrs" "/feeds" "/nodeinfo" "/.well-known" }}
@@ -30,7 +34,7 @@ spec:
                   name: http
           {{- end }}
     {{- end }}
-  {{- with .Values.ui.ingress.tls }}
+  {{- with .Values.proxy.ingress.tls }}
   tls: {{- toYaml . | nindent 4 }}
   {{- end }}
 {{- end }}
