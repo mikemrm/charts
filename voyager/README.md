@@ -1,6 +1,6 @@
 # voyager
 
-![Version: v0.3.0](https://img.shields.io/badge/Version-v0.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.22.0](https://img.shields.io/badge/AppVersion-2.22.0-informational?style=flat-square)
+![Version: v0.3.0](https://img.shields.io/badge/Version-v0.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.23.2](https://img.shields.io/badge/AppVersion-2.23.2-informational?style=flat-square)
 
 voyager
 
@@ -21,7 +21,7 @@ dependencies:
 
 | Repository | Name | Version |
 |------------|------|---------|
-| oci://registry-1.docker.io/bitnamicharts | common | 2.28.0 |
+| oci://registry-1.docker.io/bitnamicharts | common | 2.29.1 |
 
 ## Values
 
@@ -37,6 +37,7 @@ dependencies:
 | ingress.annotations | object | `{}` |  |
 | ingress.enabled | bool | `false` |  |
 | ingress.hosts | list | `[]` |  |
+| ingress.ingressClassName | string | `""` |  |
 | ingress.tls | list | `[]` |  |
 | labels | object | `{}` |  |
 | lemmyServers | list | `[]` |  |
@@ -52,6 +53,7 @@ dependencies:
 | proxy.ingress.annotations | object | `{}` |  |
 | proxy.ingress.enabled | bool | `false` |  |
 | proxy.ingress.hosts | list | `[]` |  |
+| proxy.ingress.ingressClassName | string | `""` |  |
 | proxy.ingress.tls | list | `[]` |  |
 | proxy.labels | object | `{}` |  |
 | proxy.resources | object | `{}` |  |

@@ -21,7 +21,7 @@ dependencies:
 
 | Repository | Name | Version |
 |------------|------|---------|
-| oci://registry-1.docker.io/bitnamicharts | common | 2.28.0 |
+| oci://registry-1.docker.io/bitnamicharts | common | 2.29.1 |
 
 ## Values
 
@@ -41,6 +41,7 @@ dependencies:
 | ingress.annotations | object | `{}` |  |
 | ingress.enabled | bool | `false` |  |
 | ingress.hosts | list | `[]` |  |
+| ingress.ingressClassName | string | `""` |  |
 | ingress.tls | list | `[]` |  |
 | nameOverride | string | `""` |  |
 | otel.batchCount | int | `4` | the number of pending batches per worker, spans exceeding the limit are dropped. |
