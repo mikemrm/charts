@@ -54,7 +54,7 @@ deployment:
 
 ingress:
   enabled: false
-
+  ingressClassName: ""
   annotations: {}
   hosts: []
   tls: []
