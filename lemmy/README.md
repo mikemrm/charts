@@ -1,6 +1,6 @@
 # lemmy
 
-![Version: v0.1.5](https://img.shields.io/badge/Version-v0.1.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.19.8](https://img.shields.io/badge/AppVersion-0.19.8-informational?style=flat-square)
+![Version: v0.2.0](https://img.shields.io/badge/Version-v0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.19.8](https://img.shields.io/badge/AppVersion-0.19.8-informational?style=flat-square)
 
 lemmy
 
@@ -14,14 +14,14 @@ Chart Dependency:
 dependencies:
   - name: lemmy
     repository: 'oci://mrmhub.io/mikemrm'
-    version: 'v0.1.5'
+    version: 'v0.2.0'
 ```
 
 ## Requirements
 
 | Repository | Name | Version |
 |------------|------|---------|
-| oci://registry-1.docker.io/bitnamicharts | common | 2.28.0 |
+| oci://registry-1.docker.io/bitnamicharts | common | 2.29.1 |
 
 ## Values
 
@@ -49,6 +49,7 @@ dependencies:
 | proxy.ingress.annotations | object | `{}` |  |
 | proxy.ingress.enabled | bool | `false` |  |
 | proxy.ingress.hosts | list | `[]` |  |
+| proxy.ingress.ingressClassName | string | `""` |  |
 | proxy.ingress.tls | list | `[]` |  |
 | proxy.labels | object | `{}` |  |
 | proxy.resources | object | `{}` |  |
@@ -86,6 +87,7 @@ dependencies:
 | server.ingress.annotations | object | `{}` |  |
 | server.ingress.enabled | bool | `false` |  |
 | server.ingress.hosts | list | `[]` |  |
+| server.ingress.ingressClassName | string | `""` |  |
 | server.ingress.tls | list | `[]` |  |
 | server.labels | object | `{}` |  |
 | server.resources | object | `{}` |  |
@@ -103,6 +105,7 @@ dependencies:
 | ui.ingress.annotations | object | `{}` |  |
 | ui.ingress.enabled | bool | `false` |  |
 | ui.ingress.hosts | list | `[]` |  |
+| ui.ingress.ingressClassName | string | `""` |  |
 | ui.ingress.tls | list | `[]` |  |
 | ui.labels | object | `{}` |  |
 | ui.resources | object | `{}` |  |
