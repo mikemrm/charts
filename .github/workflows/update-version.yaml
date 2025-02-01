@@ -17,7 +17,7 @@ jobs:
           fetch-depth: 0
 
       - name: Install yq
-        uses: mikefarah/yq@v4.44.6
+        uses: mikefarah/yq@v4.45.1
       
       - name: Configure chart version
         id: chart_meta
