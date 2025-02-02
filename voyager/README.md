@@ -1,6 +1,6 @@
 # voyager
 
-![Version: v0.4.0](https://img.shields.io/badge/Version-v0.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.23.2](https://img.shields.io/badge/AppVersion-2.23.2-informational?style=flat-square)
+![Version: v0.5.0](https://img.shields.io/badge/Version-v0.5.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.24.0](https://img.shields.io/badge/AppVersion-2.24.0-informational?style=flat-square)
 
 voyager
 
@@ -14,7 +14,7 @@ Chart Dependency:
 dependencies:
   - name: voyager
     repository: 'oci://mrmhub.io/mikemrm'
-    version: 'v0.4.0'
+    version: 'v0.5.0'
 ```
 
 ## Requirements
