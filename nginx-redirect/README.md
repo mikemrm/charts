@@ -1,6 +1,6 @@
 # nginx-redirect
 
-![Version: v0.3.0](https://img.shields.io/badge/Version-v0.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.27.3](https://img.shields.io/badge/AppVersion-1.27.3-informational?style=flat-square)
+![Version: v0.3.0](https://img.shields.io/badge/Version-v0.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.27.4](https://img.shields.io/badge/AppVersion-1.27.4-informational?style=flat-square)
 
 A simple deployment to redirect requests.
 
