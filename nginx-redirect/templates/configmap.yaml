@@ -63,7 +63,7 @@ data:
             default "not-found";
         {{- range $src, $dst := .Values.redirects }}
         {{- if hasPrefix "^" $src }}
-            {{ printf "~%s" $src }} {{ quote $dst }};
+            {{ printf "~%s" $src | quote }} {{ quote $dst }};
         {{- end }}
         {{- end }}
         }
