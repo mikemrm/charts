@@ -1,6 +1,6 @@
 # voyager
 
-![Version: v0.6.0](https://img.shields.io/badge/Version-v0.6.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.24.2](https://img.shields.io/badge/AppVersion-2.24.2-informational?style=flat-square)
+![Version: v0.6.0](https://img.shields.io/badge/Version-v0.6.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.24.3](https://img.shields.io/badge/AppVersion-2.24.3-informational?style=flat-square)
 
 voyager
 
@@ -21,7 +21,7 @@ dependencies:
 
 | Repository | Name | Version |
 |------------|------|---------|
-| oci://registry-1.docker.io/bitnamicharts | common | 2.29.1 |
+| oci://registry-1.docker.io/bitnamicharts | common | 2.30.0 |
 
 ## Values
 
