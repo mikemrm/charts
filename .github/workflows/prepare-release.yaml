@@ -1,0 +1,48 @@
+name: Prepare Release
+
+on:
+  push:
+    branches:
+      - release-please--branches--main
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install yq
+        uses: mikefarah/yq@v4.45.1
+
+      - name: Update chart version
+        run: |
+          git config --global user.name "${GITHUB_ACTOR}"
+          git config --global user.email "${GITHUB_ACTOR_ID}+${GITHUB_ACTOR}@users.noreply.github.com"
+
+          for chart in $(jq -r 'to_entries[] | [.key, .value] | join("=")' .release-please-manifest.json); do
+            IFS='=' read -r chart_path chart_version <<<"$chart"
+
+            chart_file="${chart_path}/Chart.yaml"
+
+            yq ".version = \"v${chart_version}\"" \
+              "${chart_file}" > "${chart_file}.updated"
+
+            if ! diff -q "${chart_file}" "${chart_file}.updated"; then
+              mv -f "${chart_file}.updated" "${chart_file}"
+            fi
+
+            make helm-docs
+          done
+
+          if ! git --no-pager diff --exit-code; then
+            git commit -a -m 'chore(release): prepare for release'
+          fi
+
+          if ! git --no-pager diff --exit-code "origin/${{ github.ref_name }}"..HEAD; then
+            git push origin "${{ github.ref_name }}"
+          fi
