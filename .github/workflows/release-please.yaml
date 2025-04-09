@@ -1,0 +1,51 @@
+---
+name: release-please
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    outputs:
+      paths_released: ${{ steps.release.outputs.paths_released }}
+    steps:
+      - uses: googleapis/release-please-action@v4
+        id: release
+        with:
+          token: ${{ secrets.MRBOTM_GITHUB_TOKEN }}
+
+  release-chart:
+    needs: release-please
+    if: ${{ needs.release-please.outputs.paths_released != '[]' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+    strategy:
+      matrix:
+        chart: ${{ fromJSON(needs.release-please.outputs.paths_released) }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Helm
+        uses: azure/setup-helm@v4
+        with:
+          version: v3.10.0
+
+      - name: Login to registries
+        run: |
+          echo '${{ secrets.MRMHUB_PASSWORD }}' | helm registry login mrmhub.io --username '${{ secrets.MRMHUB_USERNAME }}' --password-stdin
+          echo '${{ secrets.GITHUB_TOKEN }}' | helm registry login ghcr.io --username '${{ github.actor }}' --password-stdin
+
+      - name: Publish Chart
+        run: |
+          helm package "${{ matrix.chart }}"
+
+          helm push "${{ matrix.chart }}"-*.tgz oci://mrmhub.io/mikemrm
+          helm push "${{ matrix.chart }}"-*.tgz oci://ghcr.io/${{ github.repository }}
