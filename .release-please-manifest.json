@@ -1,5 +1,5 @@
 {
-    "lemmy": "0.3.2",
-    "nginx-redirect": "0.4.2",
-    "voyager": "0.7.8"
+    "lemmy": "0.3.3",
+    "nginx-redirect": "0.4.3",
+    "voyager": "0.7.9"
 }
