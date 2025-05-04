@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.7.9](https://github.com/mikemrm/charts/compare/voyager-v0.7.8...voyager-v0.7.9) (2025-05-04)
+
+
+### Bug Fixes
+
+* **deps:** update common docker tag to v2.30.2 ([#80](https://github.com/mikemrm/charts/issues/80)) ([25baaae](https://github.com/mikemrm/charts/commit/25baaaeff9a9172cc5e653c6f68bc0fe12a3431a))
+* **deps:** update ghcr.io/aeharding/voyager docker tag to v2.34.0 ([#79](https://github.com/mikemrm/charts/issues/79)) ([b4a34f9](https://github.com/mikemrm/charts/commit/b4a34f9105c8ce922c7f7c76a5d556a8b016e65f))
+
 ## [0.7.8](https://github.com/mikemrm/charts/compare/voyager-v0.7.7...voyager-v0.7.8) (2025-04-28)
 
 
