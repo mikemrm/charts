@@ -96,7 +96,7 @@ pictrs:
   image:
     registry: ""
     repository: asonix/pictrs
-    tag: "0.5.17"
+    tag: "0.5.19"
     digest: ""
     pullPolicy: IfNotPresent
 
