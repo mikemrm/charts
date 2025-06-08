@@ -1,12 +1,11 @@
 name: Prepare Release
 
 on:
-  push:
-    branches:
-      - release-please--branches--main
+  pull_request:
 
 jobs:
   release:
+    if: startsWith(github.head_ref, 'release-please--branches--')
     runs-on: ubuntu-latest
     permissions:
       contents: write
