@@ -1,6 +1,6 @@
 # lemmy
 
-![Version: v0.3.3](https://img.shields.io/badge/Version-v0.3.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.19.11](https://img.shields.io/badge/AppVersion-0.19.11-informational?style=flat-square)
+![Version: v0.3.4](https://img.shields.io/badge/Version-v0.3.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.19.11](https://img.shields.io/badge/AppVersion-0.19.11-informational?style=flat-square)
 
 lemmy
 
@@ -14,14 +14,14 @@ Chart Dependency:
 dependencies:
   - name: lemmy
     repository: 'oci://mrmhub.io/mikemrm'
-    version: 'v0.3.3'
+    version: 'v0.3.4'
 ```
 
 ## Requirements
 
 | Repository | Name | Version |
 |------------|------|---------|
-| oci://registry-1.docker.io/bitnamicharts | common | 2.30.2 |
+| oci://registry-1.docker.io/bitnamicharts | common | 2.31.1 |
 
 ## Values
 
@@ -34,7 +34,7 @@ dependencies:
 | pictrs.image.pullPolicy | string | `"IfNotPresent"` |  |
 | pictrs.image.registry | string | `""` |  |
 | pictrs.image.repository | string | `"asonix/pictrs"` |  |
-| pictrs.image.tag | string | `"0.5.17"` |  |
+| pictrs.image.tag | string | `"0.5.19"` |  |
 | pictrs.labels | object | `{}` |  |
 | pictrs.resources | object | `{}` |  |
 | pictrs.resourcesPreset | string | `"micro"` |  |
