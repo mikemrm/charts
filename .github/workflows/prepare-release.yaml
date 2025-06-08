@@ -43,6 +43,6 @@ jobs:
             git commit -a -m 'chore(release): prepare for release'
           fi
 
-          if ! git --no-pager diff --exit-code "origin/${{ github.ref_name }}"..HEAD; then
-            git push origin "${{ github.ref_name }}"
+          if ! git --no-pager diff --exit-code "origin/${{ github.head_ref }}"..HEAD; then
+            git push origin "${{ github.head_ref }}"
           fi
