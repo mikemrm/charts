@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.4.5](https://github.com/mikemrm/charts/compare/nginx-redirect-v0.4.4...nginx-redirect-v0.4.5) (2025-08-18)
+
+
+### Bug Fixes
+
+* **deps:** update common docker tag to v2.31.4 ([#89](https://github.com/mikemrm/charts/issues/89)) ([b87c07f](https://github.com/mikemrm/charts/commit/b87c07f119ab7f9da8338cabf2d9c3784f198f0a))
+* **deps:** update nginx docker tag to v1.29.1 ([#92](https://github.com/mikemrm/charts/issues/92)) ([29c3bdf](https://github.com/mikemrm/charts/commit/29c3bdfb89221f66092cb551829b01527cff6a12))
+
 ## [0.4.4](https://github.com/mikemrm/charts/compare/nginx-redirect-v0.4.3...nginx-redirect-v0.4.4) (2025-06-08)
 
 

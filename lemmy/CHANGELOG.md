@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.3.5](https://github.com/mikemrm/charts/compare/lemmy-v0.3.4...lemmy-v0.3.5) (2025-08-18)
+
+
+### Bug Fixes
+
+* **deps:** update common docker tag to v2.31.4 ([#89](https://github.com/mikemrm/charts/issues/89)) ([b87c07f](https://github.com/mikemrm/charts/commit/b87c07f119ab7f9da8338cabf2d9c3784f198f0a))
+* **deps:** update dessalines/lemmy docker tag to v0.19.12 ([#90](https://github.com/mikemrm/charts/issues/90)) ([ca8c52a](https://github.com/mikemrm/charts/commit/ca8c52a9a9910933ea0ec83441039423bf1bcb6c))
+
 ## [0.3.4](https://github.com/mikemrm/charts/compare/lemmy-v0.3.3...lemmy-v0.3.4) (2025-06-08)
 
 
