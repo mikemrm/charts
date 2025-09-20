@@ -2,7 +2,7 @@ apiVersion: v2
 name: voyager
 description: voyager
 type: application
-version: 0.7.12
+version: v0.7.12
 # renovate: image=ghcr.io/aeharding/voyager
 appVersion: 2.40.0
 dependencies:
