@@ -4,7 +4,7 @@ description: voyager
 type: application
 version: v0.7.14
 # renovate: image=ghcr.io/aeharding/voyager
-appVersion: 2.40.3
+appVersion: 2.41.0
 dependencies:
   - name: common
     repository: 'oci://registry-1.docker.io/bitnamicharts'
