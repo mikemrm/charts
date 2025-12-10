@@ -4,7 +4,7 @@ description: A simple deployment to redirect requests.
 type: application
 version: v0.4.7
 # renovate: image=nginx
-appVersion: 1.29.3
+appVersion: 1.29.4
 dependencies:
   - name: common
     repository: 'oci://registry-1.docker.io/bitnamicharts'
