@@ -2,7 +2,7 @@ apiVersion: v2
 name: nginx-redirect
 description: A simple deployment to redirect requests.
 type: application
-version: v0.4.7
+version: 0.4.8
 # renovate: image=nginx
 appVersion: 1.29.4
 dependencies:
