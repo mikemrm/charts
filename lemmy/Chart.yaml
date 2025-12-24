@@ -4,7 +4,7 @@ description: lemmy
 type: application
 version: v0.3.7
 # renovate: image=dessalines/lemmy
-appVersion: 0.19.14
+appVersion: 0.19.15
 dependencies:
   - name: common
     repository: 'oci://registry-1.docker.io/bitnamicharts'
