@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.3.8](https://github.com/mikemrm/charts/compare/lemmy-v0.3.7...lemmy-v0.3.8) (2026-01-19)
+
+
+### Bug Fixes
+
+* **deps:** update asonix/pictrs docker tag to v0.5.20 ([#119](https://github.com/mikemrm/charts/issues/119)) ([17bc54e](https://github.com/mikemrm/charts/commit/17bc54eede4cb2f879b3d97cd538e74298ed9b3b))
+* **deps:** update dessalines/lemmy docker tag to v0.19.15 ([#117](https://github.com/mikemrm/charts/issues/117)) ([39dfe34](https://github.com/mikemrm/charts/commit/39dfe3404ae843ed11169a353aac4d8e1ff0d131))
+
 ## [0.3.7](https://github.com/mikemrm/charts/compare/lemmy-v0.3.6...lemmy-v0.3.7) (2025-12-12)
 
 
