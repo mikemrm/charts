@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.18](https://github.com/mikemrm/charts/compare/voyager-v0.7.17...voyager-v0.7.18) (2026-02-07)
+
+
+### Bug Fixes
+
+* **deps:** update common docker tag to v2.34.0 ([#122](https://github.com/mikemrm/charts/issues/122)) ([dd616eb](https://github.com/mikemrm/charts/commit/dd616eb98c38230eca16298aa8d6d6492156efe2))
+
 ## [0.7.17](https://github.com/mikemrm/charts/compare/voyager-v0.7.16...voyager-v0.7.17) (2026-01-19)
 
 
