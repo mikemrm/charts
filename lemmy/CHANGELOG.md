@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.9](https://github.com/mikemrm/charts/compare/lemmy-v0.3.8...lemmy-v0.3.9) (2026-02-07)
+
+
+### Bug Fixes
+
+* **deps:** update common docker tag to v2.34.0 ([#122](https://github.com/mikemrm/charts/issues/122)) ([dd616eb](https://github.com/mikemrm/charts/commit/dd616eb98c38230eca16298aa8d6d6492156efe2))
+
 ## [0.3.8](https://github.com/mikemrm/charts/compare/lemmy-v0.3.7...lemmy-v0.3.8) (2026-01-19)
 
 
