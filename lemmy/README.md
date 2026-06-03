@@ -1,6 +1,6 @@
 # lemmy
 
-![Version: v0.3.9](https://img.shields.io/badge/Version-v0.3.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.19.17](https://img.shields.io/badge/AppVersion-0.19.17-informational?style=flat-square)
+![Version: v0.3.10](https://img.shields.io/badge/Version-v0.3.10-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.19.18](https://img.shields.io/badge/AppVersion-0.19.18-informational?style=flat-square)
 
 lemmy
 
@@ -14,14 +14,14 @@ Chart Dependency:
 dependencies:
   - name: lemmy
     repository: 'oci://mrmhub.io/mikemrm'
-    version: 'v0.3.9'
+    version: 'v0.3.10'
 ```
 
 ## Requirements
 
 | Repository | Name | Version |
 |------------|------|---------|
-| oci://registry-1.docker.io/bitnamicharts | common | 2.37.0 |
+| oci://registry-1.docker.io/bitnamicharts | common | 2.40.0 |
 
 ## Values
 
