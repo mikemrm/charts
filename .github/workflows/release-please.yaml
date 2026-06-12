@@ -36,7 +36,7 @@ jobs:
       - name: Install Helm
         uses: azure/setup-helm@v5
         with:
-          version: v3.10.0
+          version: v4.2.1
 
       - name: Login to registries
         run: |
