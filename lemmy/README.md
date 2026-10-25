@@ -1,6 +1,6 @@
 # lemmy
 
-![Version: v0.3.11](https://img.shields.io/badge/Version-v0.3.11-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.19.20](https://img.shields.io/badge/AppVersion-0.19.20-informational?style=flat-square)
+![Version: v0.3.12](https://img.shields.io/badge/Version-v0.3.12-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.19.20](https://img.shields.io/badge/AppVersion-0.19.20-informational?style=flat-square)
 
 lemmy
 
@@ -14,7 +14,7 @@ Chart Dependency:
 dependencies:
   - name: lemmy
     repository: 'oci://mrmhub.io/mikemrm'
-    version: 'v0.3.11'
+    version: 'v0.3.12'
 ```
 
 ## Requirements
@@ -34,7 +34,7 @@ dependencies:
 | pictrs.image.pullPolicy | string | `"IfNotPresent"` |  |
 | pictrs.image.registry | string | `""` |  |
 | pictrs.image.repository | string | `"asonix/pictrs"` |  |
-| pictrs.image.tag | string | `"0.5.24"` |  |
+| pictrs.image.tag | string | `"0.5.25"` |  |
 | pictrs.labels | object | `{}` |  |
 | pictrs.resources | object | `{}` |  |
 | pictrs.resourcesPreset | string | `"micro"` |  |
