@@ -17,7 +17,7 @@ jobs:
           ref: ${{ github.head_ref }}
 
       - name: Install yq
-        uses: mikefarah/yq@v4.53.6
+        uses: mikefarah/yq@v4.54.1
 
       - name: Update chart version
         run: |
