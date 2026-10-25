@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.12](https://github.com/mikemrm/charts/compare/lemmy-v0.3.11...lemmy-v0.3.12) (2026-10-25)
+
+
+### Bug Fixes
+
+* **deps:** update asonix/pictrs docker tag to v0.5.25 ([#156](https://github.com/mikemrm/charts/issues/156)) ([a078cc2](https://github.com/mikemrm/charts/commit/a078cc24ffe56f421e2f4a164443b64f92e7a082))
+
 ## [0.3.11](https://github.com/mikemrm/charts/compare/lemmy-v0.3.10...lemmy-v0.3.11) (2026-09-12)
 
 
