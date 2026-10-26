@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.13](https://github.com/mikemrm/charts/compare/lemmy-v0.3.12...lemmy-v0.3.13) (2026-10-26)
+
+
+### Bug Fixes
+
+* **deps:** update dessalines/lemmy docker tag to v0.19.21 ([#158](https://github.com/mikemrm/charts/issues/158)) ([2e4df71](https://github.com/mikemrm/charts/commit/2e4df7144c68da6096a79fc888fa031a3258116f))
+
 ## [0.3.12](https://github.com/mikemrm/charts/compare/lemmy-v0.3.11...lemmy-v0.3.12) (2026-10-25)
 
 
